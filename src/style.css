@@ -17,6 +17,13 @@
 	background: linear-gradient(#87CEEB, #E0F6FF)
 }
 
+.controls {
+	width: 100%;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
 .pipe {
 	position: absolute;
 	bottom: 0;

@@ -1,3 +1,3 @@
-const pipe = document.querySelector(".pipe");
+const pipe = document.querySelector(".pipe") as HTMLImageElement;
 
-export default { pipe };
+export { pipe };

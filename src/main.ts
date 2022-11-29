@@ -1,5 +1,5 @@
-import { jump, mario } from "./components/Mario";
-import { pipe } from "./components/Pipe";
+import { gameOver, jump, mario, resetMarioDefaults } from "./components/Mario";
+import { pipe, resetPipeDefaults } from "./components/Pipe";
 
 const gameLoop = setInterval(() => {
 	const pipePos = pipe.offsetLeft;
@@ -12,12 +12,46 @@ const gameLoop = setInterval(() => {
 		mario.style.animation = "none";
 		mario.style.bottom = `${marioPos}px`;
 
-		mario.src = "./images/game-over.png";
-		mario.style.width = "75px";
-		mario.style.marginLeft = "50px";
+		gameOver();
 
 		clearInterval(gameLoop);
 	}
 }, 10);
 
-document.addEventListener("keydown", jump);
+const restart = () => {
+	resetMarioDefaults();
+	resetPipeDefaults();
+	const gameLoop = setInterval(() => {
+		const pipePos = pipe.offsetLeft;
+		const marioPos = +window.getComputedStyle(mario).bottom.replace("px", "");
+
+		if (pipePos <= 120 && pipePos > 0 && marioPos < 80) {
+			pipe.style.animation = "none";
+			pipe.style.left = `${pipePos}px`;
+
+			mario.style.animation = "none";
+			mario.style.bottom = `${marioPos}px`;
+
+			gameOver();
+
+			clearInterval(gameLoop);
+		}
+	}, 10);
+};
+
+const controlMap = (key: string) => {
+	console.log(key);
+	switch (key) {
+		case "ArrowUp":
+			jump();
+			break;
+		case " ":
+			jump();
+			break;
+		case "r":
+			restart();
+			break;
+	}
+};
+
+document.addEventListener("keydown", (event) => controlMap(event.key));

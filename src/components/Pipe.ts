@@ -1,3 +1,8 @@
 const pipe = document.querySelector(".pipe") as HTMLImageElement;
 
-export { pipe };
+const resetPipeDefaults = () => {
+	pipe.style.removeProperty("left");
+	pipe.style.animation = "pipe-animation 2s infinite linear";
+};
+
+export { pipe, resetPipeDefaults };
